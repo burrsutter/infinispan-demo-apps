@@ -40,6 +40,8 @@ import java.util.stream.Collectors;
 @Slf4j
 @Data
 public class ShoppingCartController {
+    
+    final String hostName = System.getenv().getOrDefault("HOSTNAME", "unknown");
 
     public static final String SESSION_ATTR_MOVIE_CART = "MOVIE_CART";
     @Autowired
@@ -112,6 +114,7 @@ public class ShoppingCartController {
                     .build();
             })
             .collect(Collectors.toList());
+        model.put("hostName", hostName);    
         model.put("cartItems", cartMovies);
         model.put("cartCount", cartMovies.size());
         return "cart";
